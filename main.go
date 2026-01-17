@@ -21,7 +21,9 @@ func main() {
 		panic(err)
 	}
 
-	// Create a health route
+	defer app.DB.Close() // Close the db connections at the end
+
+	// Create a health route manually with the stdlib
 	// http.HandleFunc("/health", HealthChecker)
 
 	// Include a route handler to work with all routes.
@@ -35,16 +37,11 @@ func main() {
 		WriteTimeout: 30 * time.Minute,
 	}
 
+	app.Logger.Printf("We are running our api on port %d\n", port)
+
 	// Update the err variable
 	err = server.ListenAndServe()
 	if err != nil {
 		app.Logger.Fatal(err)
 	}
-
-	app.Logger.Printf("We are running our api on port %d\n", port)
-
 }
-
-// func HealthChecker(w http.ResponseWriter, r *http.Request) {
-// 	fmt.Fprintf(w, "Application health is available\n")
-// }
