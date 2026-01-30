@@ -83,7 +83,7 @@ Connected to database....
 ```
 you should see the migrated version.
 
-### COnnecting the DB to the store structs
+### Connecting the DB to the store structs
 Post migration, we can define our DB types as structs, similar to how an ORM will have a variable for accessing 
 the db. In Go, we can include struct tags to improve json conversion. <br>
 A struct tag helps with encoding and decoding JSON into a struct, allowing easy conversion between JSON payloads 

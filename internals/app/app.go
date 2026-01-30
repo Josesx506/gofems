@@ -7,15 +7,14 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/Josesx506/gofems/internals/api"
+	// "github.com/Josesx506/gofems/internals/api"
 	"github.com/Josesx506/gofems/internals/store"
 	"github.com/Josesx506/gofems/migrations"
 )
 
 type Application struct {
-	Logger         *log.Logger
-	WorkoutHandler *api.WorkoutHandler
-	DB             *sql.DB
+	Logger *log.Logger
+	DB     *sql.DB
 }
 
 func NewApplication() (*Application, error) {
@@ -35,13 +34,9 @@ func NewApplication() (*Application, error) {
 
 	// Stores for db access
 
-	// Handlers/Controllers for routes
-	workoutHandler := api.NewWorkoutHandler()
-
 	app := &Application{
-		Logger:         logger,
-		WorkoutHandler: workoutHandler,
-		DB:             pgDB,
+		Logger: logger,
+		DB:     pgDB,
 	}
 
 	return app, nil

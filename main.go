@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Josesx506/gofems/internals/api"
 	"github.com/Josesx506/gofems/internals/app"
-	"github.com/Josesx506/gofems/internals/routes"
 )
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 	// http.HandleFunc("/health", HealthChecker)
 
 	// Include a route handler to work with all routes.
-	r := routes.SetupRoutes(app)
+	r := api.SetupRoutes(app)
 
 	server := &http.Server{
 		Addr:         fmt.Sprintf(":%d", port), //port

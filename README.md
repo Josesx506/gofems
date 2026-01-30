@@ -44,19 +44,23 @@ onto one another requiring extensive pointer receivers to avoid bloated copies. 
 Controllers are termed handlers and methods are inherited within structs across the 
 application. Major modules in the internal folder are
 ```bash
-├── internals
-│   ├── api    # includes controllers/handlers for endpoints
-│   │   └── workout_handler.go
-│   ├── app    # big struct that inherits logs, db models, and handlers as fields
-│   │   └── app.go
-│   ├── routes # chi router is used to associate endpoints with handlers
-│   │   └── routes.go
-│   └── store  # db queries and potentially table schemas
-│       └── workout_store.go
+└── internals
+    ├── app    # big struct that inherits logs, db models, and handlers as fields
+    │   └── app.go
+    ├── api              # chi router is used to associate endpoints with handlers
+    │   ├── routes.go
+    │   └── v1           # versioned api including all routers and endpoints
+    │       ├── v1Handlers.go
+    │       ├── v1Router.go
+    │       └── workouts # workout service as subrouter with endpoints
+    │           ├── workoutHandlers.go # controllers/handlers
+    │           └── workoutRouter.go
+    └── store  # db queries and table schema structs
+        └── workout_store.go
 ```
 
 
 ### Test queries
 - `curl localhost:8080/health`
-- `curl localhost:8080/workouts/300`
-- `curl -X POST localhost:8080/workouts`
+- `curl localhost:8080/api/v1/workouts/300`
+- `curl -X POST localhost:8080/api/v1/workouts`
