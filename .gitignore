@@ -35,3 +35,4 @@ go.work.sum
 /database
 ./database
 *.DS_Store
+tmp

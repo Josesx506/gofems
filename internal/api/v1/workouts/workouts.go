@@ -1,7 +1,6 @@
-package store
+package workouts
 
-import "database/sql"
-
+// Analogous to database table schema but tailored for API encoding/decoding responses
 type Workout struct {
 	ID              int            `json:"id"`
 	UserID          int            `json:"user_id"`
@@ -21,21 +20,4 @@ type WorkoutEntry struct {
 	Weight          *float64 `json:"weight"`
 	Notes           string   `json:"notes"`
 	OrderIndex      int      `json:"order_index"`
-}
-
-type PostgresWorkoutStore struct {
-	db *sql.DB
-}
-
-func NewPostgresWorkoutStore(db *sql.DB) *PostgresWorkoutStore {
-	return &PostgresWorkoutStore{db: db}
-}
-
-// Use interface to decouple DB (postgres) from application layer
-type WorkoutStore interface {
-	CreateWorkout(*Workout) (*Workout, error)
-	GetWorkoutByID(id int64) (*Workout, error)
-	UpdateWorkout(*Workout) error
-	DeleteWorkout(id int64) error
-	GetWorkoutOwner(id int64) (int, error)
 }

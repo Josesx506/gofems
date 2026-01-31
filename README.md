@@ -59,8 +59,11 @@ application. Major modules in the internal folder are
         └── workout_store.go
 ```
 
+### Live server reload
+To start the server, you'll need to repeatedly run the server with `go run main.go`. This doesn't track file changes and requires manually reloading the server in dev to track changes. There's a live reload tool called [air](https://github.com/air-verse/air) that supports live reloads. Install it across the environment like goose with `go install github.com/air-verse/air@latest`, then start the server with `air`. This launches the main.go file and tracks changes interactively.
+
 
 ### Test queries
-- `curl localhost:8080/health`
-- `curl localhost:8080/api/v1/workouts/300`
-- `curl -X POST localhost:8080/api/v1/workouts`
+- `curl localhost:8080/health | jq`
+- `curl localhost:8080/v1/workouts/1 | jq`
+- `curl -X DELETE localhost:8080/v1/workouts/1 | jq`

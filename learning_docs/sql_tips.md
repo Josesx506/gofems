@@ -1,0 +1,14 @@
+### Tips
+- Subqueries are typically slower than joins except under unique circumstances e.g.
+    - joining a metadata table with an indexed timeseries table. Because the timeseries table is large, joins are slow. Filtering the metadata table in a subquery and using the results to filter the timeseries table can be more efficient.
+    - Always use `EXPLAIN ANALYZE` before making a tradeoff.
+- Subqueries can be slower compared to joins, and nesting queries can make them harder to read. The performance difference can vary depending on the specific query and database conditions.
+- `VIEW` is a way to group a subquery without creating a new table. 
+    - This can be useful for security purposes where you subset your data into views for external access.
+    - It doesn't cache the results and each time you query a view, the underlying table is also queried internally so there's no performance improvement but it can make it easier to write queries.
+- `MATERIALIZED VIEW` on the other hand are like a cache. They create a cached view that is separate from the underlying table resulting in a performance improvements if structured properly. Columns of materialized view can also be indexed for faster performance.
+    - Because they're like a cache, data can go stale, requiring a refresh. Refreshing materialized views without using the `concurrently` keyword can cause table locks.
+- While functions in sql can be useful for reusable logic in multi-step workflows, don't go overboard with them. They're harder to debug since they only exist on the SQL server and become like a blackbox to the application once they've been created.
+    - Overusing database functions can introduce complexity, make code harder to track and debug, create challenges with source control, and add unnecessary indirection to an application
+- A trigger allows you to run a function automatically when a specific event occurs in a database, such as an update, insert, or delete operation, enabling actions like creating an audit trail or performing additional processing when data changes.
+    - `OLD` and `NEW` are special keywords in a trigger function that represent the state of a row before and after an update, allowing comparison and processing of data changes.

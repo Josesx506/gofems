@@ -2,13 +2,11 @@ package app
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
 
-	// "github.com/Josesx506/gofems/internals/api"
-	"github.com/Josesx506/gofems/internals/store"
+	"github.com/Josesx506/gofems/internal/store"
 	"github.com/Josesx506/gofems/migrations"
 )
 
@@ -44,5 +42,6 @@ func NewApplication() (*Application, error) {
 
 // Add the health check controller as a method
 func (a *Application) HealthChecker(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Application health is available\n")
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Application health is available\n"))
 }

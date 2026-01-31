@@ -8,7 +8,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # [Optional] Uncomment the next lines to use go get to install anything else you need
 USER vscode
 # RUN go get -x <your-dependency-or-tool>
-RUN go install github.com/pressly/goose/v3/cmd/goose@latest
+RUN go install github.com/pressly/goose/v3/cmd/goose@latest   # database migration tool
+RUN go install github.com/air-verse/air@latest                # cli tool for live reloading go server in dev
 USER root
 
 # [Optional] Uncomment this line to install global node packages.

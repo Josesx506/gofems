@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Josesx506/gofems/internals/api"
-	"github.com/Josesx506/gofems/internals/app"
+	"github.com/Josesx506/gofems/internal/api"
+	"github.com/Josesx506/gofems/internal/app"
 )
 
 func main() {

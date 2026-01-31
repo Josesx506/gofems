@@ -2,12 +2,16 @@ package apiv1
 
 import (
 	"net/http"
+
+	"github.com/Josesx506/gofems/internal/app"
 )
 
-type ApiV1Handler struct{}
+type ApiV1Handler struct {
+	app *app.Application
+}
 
-func NewApiV1Handler() *ApiV1Handler {
-	return &ApiV1Handler{}
+func NewApiV1Handler(app *app.Application) *ApiV1Handler {
+	return &ApiV1Handler{app: app}
 }
 
 func (av1 *ApiV1Handler) Health(w http.ResponseWriter, r *http.Request) {

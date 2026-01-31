@@ -120,4 +120,13 @@ func (sh *SharedHandler) Health(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
+#### Guidelines to implement a route
+1. Update database layer interface
+2. Create CRUD method in database store, 
+3. Create handler function
+4. Add route for CRUD operation
 
+
+The ***`Envelope`*** is a map with a `string` key and an `interface{}` or `any` value, allowing flexible JSON serialization by enabling different types of data to be passed, such as error messages or success data like workout structs
+
+`json.MarshalIndent()` differs from the standard json marshaling because it allows for indentation of JSON fields by specifying a prefix and indent, making the JSON output more readable compared to compact JSON
