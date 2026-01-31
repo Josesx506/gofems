@@ -127,6 +127,13 @@ func (sh *SharedHandler) Health(w http.ResponseWriter, r *http.Request) {
 4. Add route for CRUD operation
 
 
-The ***`Envelope`*** is a map with a `string` key and an `interface{}` or `any` value, allowing flexible JSON serialization by enabling different types of data to be passed, such as error messages or success data like workout structs
+The ***`Envelope`*** is a map with a `string` key and an `interface{}` or `any` value, allowing flexible JSON serialization by enabling different types of data to be passed, such as error messages or success data like workout structs. It provides a flexible way to structure JSON responses by allowing dynamic key-value pairs, making it easier to return different types of data with a consistent response format
 
 `json.MarshalIndent()` differs from the standard json marshaling because it allows for indentation of JSON fields by specifying a prefix and indent, making the JSON output more readable compared to compact JSON
+
+### Handling Errors
+Log detailed error messages for internal debugging, use appropriate HTTP status codes (like StatusBadRequest or StatusInternalServerError), and provide generic error messages to clients that don't expose sensitive internal details.
+
+- `StatusBadRequest` (400) for client-side errors like invalid input, 
+- `StatusInternalServerError` (500) for server-side errors like database failures, and 
+- `StatusOK` (200) for successful operations
