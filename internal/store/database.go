@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
+	"testing"
 	"time"
 
 	_ "github.com/jackc/pgx/v4/stdlib" // Import lib without using it
@@ -69,4 +70,26 @@ func Migrate(db *sql.DB, dir string) error {
 	}
 
 	return nil
+}
+
+func SetupTestDB(t *testing.T, migrationDirectory string) *sql.DB {
+	//  Define the host using the  service name in .devcontainer/docker-compose.yml
+	db, err := sql.Open("pgx", "host=test_db user=postgres password=postgres dbname=postgres port=5432 sslmode=disable")
+	if err != nil {
+		t.Fatalf("Failed to connect to test database: %v", err)
+	}
+
+	// Run the migrations for the test database
+	err = Migrate(db, migrationDirectory) //e.g., "../../migrations/"
+	if err != nil {
+		t.Fatalf("Failed to migrate test database: %v", err)
+	}
+
+	// Reset the database state before each test
+	_, err = db.Exec(`Truncate workouts, workout_entries CASCADE`)
+	if err != nil {
+		t.Fatalf("Failed to truncate test database: %v", err)
+	}
+
+	return db
 }
